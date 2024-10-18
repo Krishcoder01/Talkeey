@@ -42,6 +42,18 @@ io.on('connection', (socket) => {
     socket.on('signalingMessage' , function({room, message}){
         socket.broadcast.to(room).emit('signalinmessage', message);
     })
+
+    socket.on('startVideoCall' , function({room}){
+        socket.broadcast.to(room).emit('incomingCall');
+    })
+
+    socket.on('acceptCall' , function({room}){
+        socket.broadcast.to(room).emit('callAccepted');
+    })  
+
+    socket.on('rejectCall' , function({room}){
+        socket.broadcast.to(room).emit('callRejected');
+    })
     
     socket.on('disconnect', () => {
         const index = waitingUsers.findIndex((user) => user.id === socket.id);
