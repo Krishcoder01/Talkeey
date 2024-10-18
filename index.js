@@ -73,6 +73,12 @@ app.get('/chat', (req, res) => {
 
 
 
+    setTimeout(() => {
+        console.log('letting server to never stop');
+    }, 1000*60*60*24*4);
+
+// setTimeout();
+
 server.listen(3000, () => {
     console.log('Server running on port 3000');
 }); 
