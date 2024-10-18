@@ -35,31 +35,39 @@ io.on('connection', (socket) => {
     })
 
     socket.on('message', ({room, message}) => {
+        // console.log(room + " room " + message);
         socket.broadcast.to(room).emit('message', message);
     });
 
 
     socket.on('signalingMessage' , function({room, message}){
+        console.log(room + " room2 " + message);
+
         socket.broadcast.to(room).emit('signalinmessage', message);
     })
 
     socket.on('startVideoCall' , function({room}){
+        console.log(room + " room3 " );
+
         socket.broadcast.to(room).emit('incomingCall');
     })
 
     socket.on('acceptCall' , function({room}){
+        console.log(room + " room4 " );
+
         socket.broadcast.to(room).emit('callAccepted');
     })  
 
     socket.on('rejectCall' , function({room}){
+        console.log(room + " room5 " );
+
         socket.broadcast.to(room).emit('callRejected');
     })
     
     socket.on('disconnect', () => {
-        const index = waitingUsers.findIndex((user) => user.id === socket.id);
-        if(index > -1){
-            waitingUsers.splice(index, 1);
-        }
+        let index = waitingUsers.findIndex((user) => user.id === socket.id);
+        waitingUsers.splice(index, 1);
+        
     });
 });
 
