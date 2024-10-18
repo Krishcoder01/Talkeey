@@ -292,7 +292,7 @@
             }
 
             const handleSignalingMessage = async (message) => {
-                const { type, offer, answer, candidate , hangup } = JSON.parse(message);
+                const { type, offer, answer, candidate  } = JSON.parse(message);
                 if (type === "offer") handleOffer(offer);
                 if (type === "answer") handleAnswer(answer);
                 if (type === "candidate" && peerConnection) {

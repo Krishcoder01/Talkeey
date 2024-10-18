@@ -19,8 +19,10 @@ const rooms = {};
 io.on('connection', function (socket) {
     socket.on('joinroom', function () {
         if (waitingusers.length > 0) {
+            console.log(socket.id, 'joined room');
             let partner = waitingusers.shift();
             const roomname = `${socket.id}-${partner.id}`;
+            console.log('roomname', roomname);
             socket.join(roomname);
             partner.join(roomname);
             io.to(roomname).emit('joined', roomname);
@@ -33,6 +35,7 @@ io.on('connection', function (socket) {
         let index = waitingusers.findIndex(
             (waitingUser) => waitingUser.id === socket.id
         );
+        console.log(waitingusers[index], 'disconnected');
         waitingusers.splice(index, 1);
     })
     socket.on('message', function (data) {
