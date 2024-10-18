@@ -96,11 +96,11 @@
                 </div>
 
                 <div class="control-container" id="hangup">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M0 0h24v24H0z" fill="red" />
-                        <path
-                            d="M20 15.5c-.78 0-1.55-.3-2.12-.88l-1.43-1.42a4.007 4.007 0 0 0-5.54 0l-1.43 1.42A2.983 2.983 0 0 1 4 15.5c-.78 0-1.55-.3-2.12-.88A2.983 2.983 0 0 1 1 12.5a2.983 2.983 0 0 1 .88-2.12l7-7a4.007 4.007 0 0 1 5.54 0l7 7c.58.58.88 1.34.88 2.12s-.3 1.55-.88 2.12c-.58.58-1.34.88-2.12.88z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M18.3 5.71a1 1 0 0 0-1.42 0L12 10.59 7.11 5.71a1 1 0 0 0-1.42 1.42L10.59 12l-4.9 4.88a1 1 0 1 0 1.42 1.42L12 13.41l4.88 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.88a1 1 0 0 0 0-1.42z"/>
                     </svg>
+                    
                 </div>
 
                 <div class="control-container" id="micButton">
@@ -302,7 +302,7 @@
                     }
                 }
                 if (type === "hangup") {
-                    hangup()
+                    hangup() ;
                 }
             }
 

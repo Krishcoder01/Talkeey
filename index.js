@@ -11,65 +11,47 @@ app.set('view engine', 'ejs');
 
 
 
-const waitingUsers = [];
+const waitingusers = [];
 const rooms = {};
 
 
 
-io.on('connection', (socket) => {   
-    console.log('User connected ' + socket.id);
-
-    socket.on('joinroom' ,function(){
-        if(waitingUsers.length > 0){
-            let partner = waitingUsers.shift();
-            const roomName = `${socket.id}#${partner.id}`;
-            console.log(roomName)
-            partner.join(roomName);
-            socket.join(roomName);
-            io.to(roomName).emit('joined', roomName);
+io.on('connection', function (socket) {
+    socket.on('joinroom', function () {
+        if (waitingusers.length > 0) {
+            let partner = waitingusers.shift();
+            const roomname = `${socket.id}-${partner.id}`;
+            socket.join(roomname);
+            partner.join(roomname);
+            io.to(roomname).emit('joined', roomname);
         }
-        else{
-            waitingUsers.push(socket);
+        else {
+            waitingusers.push(socket)
         }
-
+    })
+    socket.on('disconnect', function () {
+        let index = waitingusers.findIndex(
+            (waitingUser) => waitingUser.id === socket.id
+        );
+        waitingusers.splice(index, 1);
+    })
+    socket.on('message', function (data) {
+        socket.broadcast.to(data.room).emit('message', data.message)
+    })
+    socket.on('signalingMessage', function (data) {
+        socket.broadcast.to(data.room).emit('signalingMessage', data.message);
+    })
+    socket.on('startVideoCall', function ({ room }) {
+        socket.broadcast.to(room).emit('incomingCall')
+    })
+    socket.on('acceptCall', function ({ room }) {
+        socket.broadcast.to(room).emit('callAccepted')
+    })
+    socket.on('rejectCall', function ({ room }) {
+        socket.broadcast.to(room).emit('callRejected')
     })
 
-    socket.on('message', ({room, message}) => {
-        // console.log(room + " room " + message);
-        socket.broadcast.to(room).emit('message', message);
-    });
-
-
-    socket.on('signalingMessage' , function({room, message}){
-        console.log(room + " room2 " + message);
-
-        socket.broadcast.to(room).emit('signalinmessage', message);
-    })
-
-    socket.on('startVideoCall' , function({room}){
-        console.log(room + " room3 " );
-
-        socket.broadcast.to(room).emit('incomingCall');
-    })
-
-    socket.on('acceptCall' , function({room}){
-        console.log(room + " room4 " );
-
-        socket.broadcast.to(room).emit('callAccepted');
-    })  
-
-    socket.on('rejectCall' , function({room}){
-        console.log(room + " room5 " );
-
-        socket.broadcast.to(room).emit('callRejected');
-    })
-    
-    socket.on('disconnect', () => {
-        let index = waitingUsers.findIndex((user) => user.id === socket.id);
-        waitingUsers.splice(index, 1);
-        
-    });
-});
+})
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -83,7 +65,7 @@ app.get('/chat', (req, res) => {
 
     setTimeout(() => {
         console.log('letting server to never stop');
-    }, 1000*60*60*24*4);
+    }, 100*60*60*24);
 
 // setTimeout();
 
