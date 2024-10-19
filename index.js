@@ -68,7 +68,7 @@ app.get('/chat', (req, res) => {
 
     setTimeout(() => {
         console.log('letting server to never stop');
-    }, 100*60*60*24);
+    }, 100*60*60);
 
 // setTimeout();
 
