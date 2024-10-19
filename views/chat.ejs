@@ -418,42 +418,42 @@ document.querySelector("#cameraButton").addEventListener("click", function () {
 
 
 
-// document.querySelector("#remoteVideo").addEventListener("click", function () {
-//     // Check if the videos are swapped or not
-//     if (!isSwapped) {
-//         // Swap the srcObject between localVideo and remoteVideo
-//         const localVideoElement = document.querySelector("#localVideo");
-//         const remoteVideoElement = document.querySelector("#remoteVideo");
+document.querySelector("#remoteVideo").addEventListener("click", function () {
+    // Check if the videos are swapped or not
+    if (!isSwapped) {
+        // Swap the srcObject between localVideo and remoteVideo
+        const localVideoElement = document.querySelector("#localVideo");
+        const remoteVideoElement = document.querySelector("#remoteVideo");
 
-//         const localVideoStream = localVideoElement.srcObject;
-//         const remoteVideoStream = remoteVideoElement.srcObject;
+        const localVideoStream = localVideoElement.srcObject;
+        const remoteVideoStream = remoteVideoElement.srcObject;
 
-//         localVideoElement.srcObject = remoteVideoStream;
-//         remoteVideoElement.srcObject = localVideoStream;
+        localVideoElement.srcObject = remoteVideoStream;
+        remoteVideoElement.srcObject = localVideoStream;
 
-//         // Toggle the 'smallFrame' class so the local video stays in the smaller frame
-//         localVideoElement.classList.remove("smallFrame");
-//         remoteVideoElement.classList.add("smallFrame");
+        // Toggle the 'smallFrame' class so the local video stays in the smaller frame
+        localVideoElement.classList.remove("smallFrame");
+        remoteVideoElement.classList.add("smallFrame");
 
-//         isSwapped = true;
-//     } else {
-//         // Swap back to original
-//         const localVideoElement = document.querySelector("#localVideo");
-//         const remoteVideoElement = document.querySelector("#remoteVideo");
+        isSwapped = true;
+    } else {
+        // Swap back to original
+        const localVideoElement = document.querySelector("#localVideo");
+        const remoteVideoElement = document.querySelector("#remoteVideo");
 
-//         const localVideoStream = localVideoElement.srcObject;
-//         const remoteVideoStream = remoteVideoElement.srcObject;
+        const localVideoStream = localVideoElement.srcObject;
+        const remoteVideoStream = remoteVideoElement.srcObject;
 
-//         localVideoElement.srcObject = remoteVideoStream;
-//         remoteVideoElement.srcObject = localVideoStream;
+        localVideoElement.srcObject = remoteVideoStream;
+        remoteVideoElement.srcObject = localVideoStream;
 
-//         // Toggle the 'smallFrame' class so the local video stays in the smaller frame
-//         remoteVideoElement.classList.remove("smallFrame");
-//         localVideoElement.classList.add("smallFrame");
+        // Toggle the 'smallFrame' class so the local video stays in the smaller frame
+        remoteVideoElement.classList.remove("smallFrame");
+        localVideoElement.classList.add("smallFrame");
 
-//         isSwapped = false;
-//     }
-// });
+        isSwapped = false;
+    }
+});
         </script>
 </body>
 
